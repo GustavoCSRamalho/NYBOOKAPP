@@ -41,6 +41,15 @@ class BooksActivity : BaseActivity() {
             }
         })
 
+        viewModel.viewFlipperLiveData.observe(this, Observer {
+            viewFlipper -> run{
+            viewFlipperBooks.displayedChild = viewFlipper.first
+            viewFlipper.second?.let { errorMessageResId -> run {
+                textViewError.text = getString(errorMessageResId)
+            } }
+        }
+        })
+
         viewModel.getBooks()
 
 
